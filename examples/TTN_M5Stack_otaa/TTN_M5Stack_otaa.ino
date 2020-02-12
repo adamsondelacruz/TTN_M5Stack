@@ -1,15 +1,15 @@
 /*
-    Name:       M5Stack_TTN_ENV.ino
+    Name:       M5Stack_TTN_otaa.ino
     Created:	07/02/2020 10:14:10
     Author:     I5-FR\francois
 */
-//#include <M5Stack.h>
-#include "TTN_M5Stack.h"
+#include <M5Stack.h>
+#include "TTN_M5Stack.h" 
 #include <TTN_CayenneLPP.h>
 
-char *devEui = "0EC3AC7C32981E5"; //changer avec de devEui TTN
-char *appEui = "70B3D57ED0015575"; // changer avec le appEui TTN
-char *appKey = "DFF6EC5B347AE5BBE6395B06FCD974A7"; // changer avec le appKey TTN
+char *devEui = "CHANGE_ME"; //changer avec de devEui TTN
+char *appEui = "CHANGE_ME"; // changer avec le appEui TTN
+char *appKey = "CHANGE_ME"; // changer avec le appKey TTN
 
 TTN_M5Stack ttn;
 TTN_CayenneLPP lpp;
@@ -20,8 +20,7 @@ void message(const uint8_t *payload, short size, short rssi)
 	Serial.printf("Received %d bytes niveau %d\n",size,rssi);
 	for (int i = 0; i < size; i++)
 	{
-		Serial.printf("%02X ",payload[i]);
-		//Serial.write(payload[i]);
+		Serial.printf("%02X ",payload[i]);		
 	}
 
 	Serial.println();

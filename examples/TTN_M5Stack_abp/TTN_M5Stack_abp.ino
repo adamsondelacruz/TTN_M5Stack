@@ -1,12 +1,12 @@
 /*
- * this example uses M5Stack with LoRaWan868 Module
+ * this example uses M5Stack with LoRaWan Module
  */
 #include <TTN_M5Stack.h>
 #include <TTN_CayenneLPP.h>
 
-//const char *devAddr = "CHANGE_ME";
-//const char *nwkSKey = "CHANGE_ME";
-//const char *appSKey = "CHANGE_ME";
+const char *devAddr = "CHANGE_ME";
+const char *nwkSKey = "CHANGE_ME";
+const char *appSKey = "CHANGE_ME";
 
 TTN_M5Stack ttn;
 TTN_CayenneLPP lpp;
@@ -19,7 +19,6 @@ void message(const uint8_t *payload, short size, short rssi)
 	for (int i = 0; i < size; i++)
 	{
 		Serial.print(" " + String(payload[i],HEX));
-		//Serial.write(payload[i]);
 	}
 
 	Serial.println();
