@@ -62,7 +62,7 @@ void onMessage(void (*cb)(const uint8_t *payload, short size, short rssi));
 - `short size`: Number of bytes.
 - `short rssi`: the rssi in dB.
 
-See the [ttn-otaa](https://github.com/rgot-org/TheThingsNetwork_esp32/blob/master/examples/ttn-otaa/ttn-otaa.ino) example.
+See the [TTN_M5Stack_otaa](https://github.com/rgot-org/TTN_M5Stack/blob/master/examples/TTN_M5Stack_otaa/TTN_M5Stack_otaa.ino) example.
 
 ## Method: `join`
 
@@ -99,7 +99,7 @@ Returns `true` or `false` depending on whether the activation was successful.
 
 Call the method with no arguments if the device's LoRa module is provisioned or comes with NVS stored values. See `provisionABP`
 
-See the [ttn_abp](https://github.com/rgot-org/TheThingsNetwork_esp32/tree/master/examples/ttn_abp) example.
+See the [TTN_M5Stack_abp](https://github.com/rgot-org/TTN_M5Stack/blob/master/examples/TTN_M5Stack_abp/TTN_M5Stack_abp.ino) example.
 
 ## Method: `sendBytes`
 
