@@ -28,12 +28,12 @@ public:
 	size_t getHardwareEui(char *buffer, size_t size);
 	size_t getDevEui(char *buffer, size_t size, bool hardwareEui = false);
 	String getDevEui(bool hardwareEui = false);
-	bool provision(char *appEui, char *appKey);
-	bool provision(char *devEui, char *appEui, char *appKey);
+	bool provision(const char *appEui, const char *appKey);
+	bool provision(const char * devEui, const char * appEui, const char * appKey);
 	bool provisionABP(const char *devAddr, const char *nwkSKey, const char *appSKey);
 	bool join();
 	bool join(const char *app_eui, const char *app_key, int8_t retries = -1, uint32_t retryDelay = 10000);
-	bool join(char *dev_eui, char *app_eui, char *app_key, int8_t retries = -1, uint32_t retryDelay = 10000);
+	bool join(const char *dev_eui, const char *app_eui, const char *app_key, int8_t retries = -1, uint32_t retryDelay = 10000);
 	bool personalize(const char *devAddr, const char *nwkSKey, const char *appSKey);
 	bool personalize();
 	void showStatus();

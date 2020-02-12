@@ -54,7 +54,7 @@ String TTN_M5Stack::getAppEui()
 
 size_t TTN_M5Stack::getHardwareEui(char * buffer, size_t size)
 {
-	char buf[16];
+	char buf[17];
 
 	getAppEui().toCharArray(buf, 16);
 	
@@ -82,24 +82,46 @@ size_t TTN_M5Stack::getDevEui(char * buffer, size_t size, bool hardwareEui)
 String TTN_M5Stack::getDevEui(bool hardwareEui)
 {
 	while (SerialLoRa.available())SerialLoRa.read();
-	SerialLoRa.printf("AT+ID=DevEui\r\n");
-	String response = SerialLoRa.readString();
-	response.replace(":", "");
-	response.replace("+ID DevEui, ","");
-	response.replace("\r\n", "");
-	return response;
+	if (hardwareEui)
+	{
+		char hexbuf[17] = { 0 };
+		uint8_t mac[6];
+
+		esp_err_t err = esp_efuse_mac_get_default(mac);
+		binToHexStr(mac, 6, hexbuf);
+		for (size_t i = 0; i < 6; i++)
+		{
+			hexbuf[15 - i] = hexbuf[11 - i];
+		}
+		hexbuf[9] = 'E';
+		hexbuf[8] = 'F';
+		hexbuf[7] = 'F';
+		hexbuf[6] = 'F';
+		return (String)hexbuf;
+	}
+	else 
+	{
+		SerialLoRa.printf("AT+ID=DevEui\r\n");
+		String response = SerialLoRa.readString();
+		response.replace(":", "");
+		response.replace("+ID DevEui, ", "");
+		response.replace("\r\n", "");
+		return response;
+	}
 }
 
-bool TTN_M5Stack::provision(char * appEui,  char * appKey)
+bool TTN_M5Stack::provision(const char * appEui,  const char * appKey)
 {
-	return false;
+	char devEui[17]={ 0 };
+	getDevEui(true).toCharArray(devEui, 17);
+	provision((const char*)devEui,appEui, appKey);
 }
 
-bool TTN_M5Stack::provision( char * devEui,  char * appEui,  char * appKey)
+bool TTN_M5Stack::provision(const char * devEui,  const char * appEui,  const char * appKey)
 {
-	lora.setId(NULL, devEui, appEui);
+	lora.setId(NULL, (char*)devEui, (char*)appEui);
 	// setKey(char *NwkSKey, char *AppSKey, char *AppKey);
-	lora.setKey(NULL, NULL, appKey);
+	lora.setKey(NULL, NULL, (char*)appKey);
 	lora.setDeciveMode(LWOTAA);
 	lora.setDataRate(DR0, EU868);// DR0 : SF12
 	lora.setChannel(0, 868.1);
@@ -143,7 +165,7 @@ bool TTN_M5Stack::join(const char * app_eui, const char * app_key, int8_t retrie
 	return false;
 }
 
-bool TTN_M5Stack::join( char * dev_eui,  char * app_eui,  char * app_key, int8_t retries, uint32_t retryDelay)
+bool TTN_M5Stack::join( const char * dev_eui,  const char * app_eui,  const char * app_key, int8_t retries, uint32_t retryDelay)
 {
 	while (SerialLoRa.available())SerialLoRa.read();
 	String deveui = getDevEui();
