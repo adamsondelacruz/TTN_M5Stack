@@ -2,7 +2,7 @@
  * this example uses M5Stack with LoRaWan Module
  */
 #include <TTN_M5Stack.h>
-#include <TTN_CayenneLPP.h>
+#include "TTN_CayenneLPP.h"
 
 const char *devAddr = "CHANGE_ME";
 const char *nwkSKey = "CHANGE_ME";

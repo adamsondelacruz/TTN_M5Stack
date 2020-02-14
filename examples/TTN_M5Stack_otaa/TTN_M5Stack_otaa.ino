@@ -4,8 +4,8 @@
     Author:     I5-FR\francois
 */
 #include <M5Stack.h>
-#include "TTN_M5Stack.h" 
-#include <TTN_CayenneLPP.h>
+#include <TTN_M5Stack.h>
+#include "TTN_CayenneLPP.h"
 
 char *devEui = "CHANGE_ME"; //changer avec de devEui TTN
 char *appEui = "CHANGE_ME"; // changer avec le appEui TTN
